@@ -1,9 +1,9 @@
-//---------------------------[Included Libarys]---------------------------
+//---------------------------[Included Libraries]---------------------------
 #include <iostream>
 #include <string>
 #include <algorithm>
 
-//---------------------------[Varibles]---------------------------
+//---------------------------[Variables]---------------------------
 bool a = true;
 bool b = true;
 int option_input; 
@@ -12,41 +12,52 @@ std::string input_text;
 std::string replace0 = " ";
 std::string replace1 = "da";
 std::string output_text; 
+
 //---------------------------[Functions]---------------------------
-std::string options(){
-    while (b == true){
-        std::cout <<"Options:\n1.Translate From English to DaLanguage\n2. Translate From DaLanguage to English\n3. Quit\n";
+int options() {
+    while (true) {
+        std::cout << "What would you like to do?\n";
+        std::cout << "Options:\n1. Translate From English to DaLanguage\n2. Translate From DaLanguage to English\n3. Quit\n";
         std::cin >> option_input;
-        if (option_input == 1){
-            std::cout << "What is the text you would like to tranlate\n";
-            std::string input_text;
-            std::cin >> input_text;
-            char target = ' ';      // Character to replace
-            char replacement = 'Da'; // Replacement character
-            std::replace(input_text.begin(), input_text.end(), target, replacement);
+        if (option_input == 1) {
+            std::cin.ignore();
+            std::cout << "What is the text you would like to translate?\n";
+            std::getline(std::cin, input_text);
+            char target = ' ';
+            std::string replacement = "Da";
+            for (size_t i = 0; i < input_text.length(); ++i) {
+                if (input_text[i] == target) {
+                    input_text.replace(i, 1, replacement);
+                    i += replacement.length() - 1;
+                }
+            }
+            std::cout << "\nTranslated text: " << "Da" << input_text << "\n"<< std::endl;
             output_text = input_text;
-        }
-        else if (option_input == 2){
-            std::cout << "What is the text you would like to tranlate\n";
-            std::cin >> input_text;
-            char target = 'Da';      // Character to replace
-            char replacement = ' '; // Replacement character
-            std::replace(input_text.begin(), input_text.end(), target, replacement);
+        } else if (option_input == 2) {
+            std::cin.ignore();
+            std::cout << "What is the text you would like to translate back?\n";
+            std::getline(std::cin, input_text);
+            std::string target = "Da";
+            char replacement = ' ';
+            size_t pos = 0;
+            while ((pos = input_text.find(target, pos)) != std::string::npos) {
+                input_text.replace(pos, target.length(), std::string(1, replacement));
+                pos += 1;
+            }
+            std::cout << "\nTranslated text: " << input_text << "\n" << std::endl;
             output_text = input_text;
-        }
-        else if (option_input == 3){
+        } else if (option_input == 3) {
+            std::cout << "Exiting the program. Goodbye!\n";
             exit(0);
-        }
-        else{
-            std::cout << "Your Input was invalid pleas select 1, 2 or 3\nExample: 2";
+        } else {
+            std::cout << "Your input was invalid. Please select 1, 2, or 3.\nExample: 2\n";
         }
     }
-    return(output_text);
+    return 0;
 }
-//---------------------------[Main Code]---------------------------
-int main(){
-    while (a == true){
-        std::cout << "what would you like to do";
-        options();
-    }
+
+//---------------------------[Main]---------------------------
+int main() {
+    options();
+    return 0;
 }
