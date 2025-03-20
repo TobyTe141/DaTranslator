@@ -2,7 +2,7 @@
 This is a Translaor app for the DaLanguage,
 it will Translate form English to DaLanguage and will also Translate from DaLanguage to English
 
-**This Project and everything in it subject to GNU V3.0 please read befor continuing**
+**This Project and everything in it subject to GNU V3.0 please read before continuing**
 
 **The Different Branches and what there for:**
 - The Main branch contains The compiled version of the application
